@@ -1,23 +1,39 @@
 import logo from './logo.svg';
 import './App.css';
+import {getAuth} from 'firebase/auth'
+import app from './firebase/firebase.int';
+import ReactBootstrapForm from './components/ReactBootstrapForm';
+import BootstrapRegisterForm from './components/BootstrapRegisterForm';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Main from './layouts/Main';
+import BoortStrapLoginForm from './components/BoortStrapLoginForm';
 
+const auth=getAuth(app);
 function App() {
+  const router=createBrowserRouter([
+    {
+      path:"/",
+      element:<Main></Main>,
+      children:[{
+        path:'/',
+       element:<BootstrapRegisterForm></BootstrapRegisterForm>
+      },
+      {
+        path:'/register',
+        element:<BootstrapRegisterForm></BootstrapRegisterForm>
+      },{
+        path:'/login',
+        element:<BoortStrapLoginForm></BoortStrapLoginForm>
+        
+      }
+
+    ],
+    }
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+     <RouterProvider router={router}></RouterProvider>
     </div>
   );
 }
